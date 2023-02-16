@@ -1,3 +1,4 @@
+<% if @payment_data.present? %>
 <table class="table">
   <thead>
     <tr>
@@ -25,3 +26,8 @@
 <div class="d-flex justify-content-center">
   <%= paginate @payment_data %>
 </div>
+<% else %>
+<div class="d-flex justify-content-center">
+  There is No PaymentIntent.
+</div>
+<% end %>

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :charges
   get 'success', to: 'charges#success'
   get 'fail', to: 'charges#fail'
+  get 'payment_data', to: 'charges#payment_data'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

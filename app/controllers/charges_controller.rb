@@ -30,15 +30,16 @@ class ChargesController < ApplicationController
         url: intent.next_action['redirect_to_url']['url']
       }.to_json
     else
+      PaymentDatum.create(payment_token: intent.id, amount:intent.amount/100.0)
       render json: { url: "#{ENV['HOST']}/fail" }.to_json 
     end
   end
 
   def success
     begin
-    intent = Stripe::PaymentIntent.retrieve(params['payment_intent'])
+   p intent = Stripe::PaymentIntent.retrieve(params['payment_intent'])
     if intent.status == 'requires_confirmation'
-      intent = Stripe::PaymentIntent.confirm(
+    p  intent = Stripe::PaymentIntent.confirm(
         params['payment_intent']
       )
     end
@@ -52,11 +53,17 @@ class ChargesController < ApplicationController
       puts "No error."
     end
     if intent.status == "succeeded"
+      PaymentDatum.create(payment_token: intent.id, amount:intent.amount/100.0 , status: true)
     else
+      PaymentDatum.create(payment_token: intent.id, amount:intent.amount/100.0)
       redirect_to "#{ENV['HOST']}/fail"
     end
   end
 
   def fail
+  end
+
+  def payment_data
+    @payment_data = PaymentDatum.order(created_at: :desc).page(params[:page])
   end
 end

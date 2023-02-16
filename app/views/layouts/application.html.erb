@@ -13,10 +13,13 @@
 
   <body>
     <nav class="navbar navbar-dark bg-dark">
-      <div class="container-fluid">
+      <div class="container-fluid justify-content-start">
         <span class="navbar-text">
           <%= link_to 'Stripe Demo', root_path, class: 'nav-link' %>
         </span>
+        <span class="navbar-text">
+          <%= link_to 'Payment Data', payment_data_path, class: 'nav-link' %>
+        <span>
       </div>
     </nav>
     <%= yield %>

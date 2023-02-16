@@ -1,0 +1,27 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Token</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Status</th>
+      <th scope="col">created At</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <% @payment_data.each do |data| %>
+      <tr>
+        <td> <%= data.id %> </td> 
+        <td> <%= data.payment_token %> </td>
+        <td> $<%= data.amount %> </td>
+        <td> <%= data.status_view %> </td>
+        <td> <%= data.created_at %> </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 
+
+<div class="d-flex justify-content-center">
+  <%= paginate @payment_data %>
+</div>

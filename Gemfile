@@ -22,6 +22,7 @@ gem 'mini_racer'
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+gem 'kaminari', '~> 1.2', '>= 1.2.1'
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 # gem "jsbundling-rails"
 

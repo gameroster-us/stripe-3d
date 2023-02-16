@@ -90,8 +90,6 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.2.0)
     crass (1.0.6)
-    cssbundling-rails (1.1.2)
-      railties (>= 6.0.0)
     date (3.3.3)
     debug (1.7.1)
       irb (>= 1.5.0)
@@ -118,8 +116,6 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    jsbundling-rails (1.1.1)
-      railties (>= 6.0.0)
     libv8-node (16.10.0.0-x86_64-linux)
     loofah (2.19.1)
       crass (~> 1.0.2)
@@ -256,12 +252,10 @@ DEPENDENCIES
   bootsnap
   bootstrap (~> 5.2.2)
   capybara
-  cssbundling-rails
   debug
   devise
   importmap-rails (~> 1.1)
   jbuilder
-  jsbundling-rails
   mini_racer
   pg
   puma (~> 5.0)

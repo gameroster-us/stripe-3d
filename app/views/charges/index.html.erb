@@ -112,7 +112,7 @@ const handleServerResponse = async (response) => {
     response.client_secret,
     {
       payment_method: {card: cardElement},
-      return_url: 'http://localhost:3000/confirm_payment_intent'
+      return_url: "#{ENV['HOST']}/confirm_payment_intent"
     },
     // Disable the default next action handling.
     {handleActions: false}

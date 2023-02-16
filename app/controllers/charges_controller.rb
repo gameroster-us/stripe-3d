@@ -14,7 +14,7 @@ class ChargesController < ApplicationController
         payment_method: params[:payment_method_id],
         amount: params[:amount],
         currency: 'usd',
-        return_url: 'http://localhost:3000/success',
+        return_url: "#{ENV['HOST']}/success",
         confirmation_method: 'manual',
         confirm: true,
       )
@@ -30,7 +30,7 @@ class ChargesController < ApplicationController
         url: intent.next_action['redirect_to_url']['url']
       }.to_json
     else
-      render json: { url: 'http://localhost:3000/fail' }.to_json 
+      render json: { url: "#{ENV['HOST']}/fail" }.to_json 
     end
   end
 
@@ -53,7 +53,7 @@ class ChargesController < ApplicationController
     end
     if intent.status == "succeeded"
     else
-      redirect_to 'http://localhost:3000/fail'
+      redirect_to "#{ENV['HOST']}/fail"
     end
   end
 

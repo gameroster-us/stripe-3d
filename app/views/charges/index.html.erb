@@ -5,6 +5,12 @@
    display: inline-block;
 }
 </style>
+<div class="row align-items-start mt-4">
+    <div class="col">
+      
+    </div>
+    <div class="col">
+      
 <form id='payment-form' action="/charges" method= "post">
   <label>
     Card details
@@ -17,6 +23,11 @@
   <br>
   <button type="submit" class="btn btn-primary">Submit Payment</button>
 </form>
+    </div>
+    <div class="col">
+      
+    </div>
+  </div>
 
 
 <script>
@@ -42,6 +53,7 @@ const style = {
 
 const cardElement = elements.create('card', {style});
 cardElement.mount('#card-element');
+
 
 
 const form = document.getElementById('payment-form');

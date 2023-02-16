@@ -14,6 +14,11 @@ gem "sqlite3", "~> 1.4"
 
 gem "devise"
 
+gem 'stripe-rails'
+
+gem 'bootstrap', '~> 5.2.2'
+gem 'mini_racer'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
@@ -75,3 +80,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "importmap-rails", "~> 1.1"

@@ -1,0 +1,41 @@
+<h2 class="text-center mt-3">Select The Plan</h2>
+<div class= "row m-5">
+  <div class= "col-4">
+    <div class="card">
+      <div class="card-header">
+        Silver
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><b>Price:</b> 10$ </h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <%= link_to 'Pay', charges_path(price: 1000), class: 'btn btn-primary'%>
+      </div>
+    </div>
+  </div>
+
+  <div class= "col-4">
+    <div class="card">
+      <div class="card-header">
+        Gold
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><b>Price:</b> 20$ </h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <%= link_to 'Pay', charges_path(price: 2000), class: 'btn btn-primary'%>
+      </div>
+    </div>
+  </div>
+
+  <div class= "col-4">
+    <div class="card">
+      <div class="card-header">
+        Platinum
+      </div>
+      <div class="card-body">
+        <h5 class="card-title"><b>Price:</b> 50$ </h5>
+        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+        <%= link_to 'Pay', charges_path(price: 5000), class: 'btn btn-primary'%>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<style>
+.card-dd{
+   width:500px; /* or whatever width you want. */
+   max-width:500px; /* or whatever width you want. */
+   display: inline-block;
+}
+</style>
+<form id='payment-form' action="/charges" method= "post">
+  <label>
+    Card details
+    <!-- placeholder for Elements -->
+    <div class="card-dd"><br>
+      <div id="card-element">
+      </div>
+    </div>
+  </label>
+  <br>
+  <button type="submit" class="btn btn-primary">Submit Payment</button>
+</form>
+
+
+<script>
+const stripe = Stripe('pk_test_51MazEpAtaSHqtwmKtBjmcG80WnGqACuEhh8lAggSCcdPQ3oIVZ2LF34Zhfm6hIgWkOKzna9EIWgMJQtTjTL1tmsV00QA5rlUX5');
+
+var elements = stripe.elements();
+
+// Set up Stripe.js and Elements to use in checkout form
+const style = {
+  theme: 'stripe',
+
+  variables: {
+    colorPrimary: '#0570de',
+    colorBackground: '#ffffff',
+    colorText: '#30313d',
+    colorDanger: '#df1b41',
+    fontFamily: 'Ideal Sans, system-ui, sans-serif',
+    spacingUnit: '2px',
+    borderRadius: '4px',
+    // See all possible variables below
+  }
+};
+
+const cardElement = elements.create('card', {style});
+cardElement.mount('#card-element');
+
+
+const form = document.getElementById('payment-form');
+
+form.addEventListener('submit', async (event) => {
+  // We don't want to let default form submission happen here,
+  // which would refresh the page.
+  event.preventDefault();
+
+  const result = await stripe.createPaymentMethod({
+    type: 'card',
+    card: cardElement,
+    billing_details: {
+      // Include any additional collected billing details.
+      name: 'Jenny Rosen',
+    },
+
+  })
+
+  stripePaymentMethodHandler(result);
+});
+
+
+const stripePaymentMethodHandler = async (result) => {
+  if (result.error) {
+    // Show error in payment form
+  } else {
+    // Otherwise send paymentMethod.id to your server (see Step 4)
+    const res = await fetch('/charges.json', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        payment_method_id: result.paymentMethod.id,
+        amount: "<%= @price %>",
+      }),
+    })
+    const paymentResponse = await res.json();
+    handleServerResponse(paymentResponse);
+    window.location = paymentResponse.url;
+    // Handle server response (see Step 4)
+  }
+}
+
+const handleServerResponse = async (response) => {
+  if (response.error) {
+    // Show error from server on payment form
+  } else if (response.requires_action) {
+    // Use Stripe.js to handle the required card action
+    const { error: errorAction, paymentIntent } =
+      await stripe.handleCardAction(response.payment_intent_client_secret);
+
+    if (errorAction) {
+      // Show error from Stripe.js in payment form
+    } else {
+      // The card action has been handled
+      // The PaymentIntent can be confirmed again on the server
+      const serverResponse = await fetch('/confirm_payment_intent', {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ payment_intent_id: paymentIntent.id })
+      });
+      handleServerResponse(await serverResponse.json());
+    }
+  } else {
+    // Show success message
+  }
+  stripe.confirmCardPayment(
+    response.client_secret,
+    {
+      payment_method: {card: cardElement},
+      return_url: 'http://localhost:3000/confirm_payment_intent'
+    },
+    // Disable the default next action handling.
+    {handleActions: false}
+  ).then(function(result) {
+    // Handle result.error or result.paymentIntent
+    // More details in Step 2.
+  });
+}
+</script>

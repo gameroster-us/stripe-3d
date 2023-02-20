@@ -37,9 +37,9 @@ class ChargesController < ApplicationController
 
   def success
     begin
-   p intent = Stripe::PaymentIntent.retrieve(params['payment_intent'])
+    intent = Stripe::PaymentIntent.retrieve(params['payment_intent'])
     if intent.status == 'requires_confirmation'
-    p  intent = Stripe::PaymentIntent.confirm(
+      intent = Stripe::PaymentIntent.confirm(
         params['payment_intent']
       )
     end

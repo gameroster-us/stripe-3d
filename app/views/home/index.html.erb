@@ -8,7 +8,9 @@
       <div class="card-body">
         <h5 class="card-title"><b>Price:</b> 10$ </h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <%= link_to 'Pay', charges_path(price: 1000), class: 'btn btn-primary'%>
+        <button type="button" class="btn btn-primary" data-price="1000" data-bs-toggle="modal" data-bs-target="#card-modal" onClick="PriceData(this)">
+          Pay 10$
+        </button>
       </div>
     </div>
   </div>
@@ -21,7 +23,9 @@
       <div class="card-body">
         <h5 class="card-title"><b>Price:</b> 20$ </h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <%= link_to 'Pay', charges_path(price: 2000), class: 'btn btn-primary'%>
+        <button type="button" class="btn btn-primary" data-price="2000" data-bs-toggle="modal" data-bs-target="#card-modal" onClick="PriceData(this)">
+          Pay 20$
+        </button>
       </div>
     </div>
   </div>
@@ -34,8 +38,36 @@
       <div class="card-body">
         <h5 class="card-title"><b>Price:</b> 50$ </h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <%= link_to 'Pay', charges_path(price: 5000), class: 'btn btn-primary'%>
+        <button type="button" class="btn btn-primary" data-price="5000" data-bs-toggle="modal" data-bs-target="#card-modal" onClick="PriceData(this)">
+          Pay 50$
+        </button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="card-modal" tabindex="-1" aria-labelledby="cardModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 600px;">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="cardModalLabel">Payment Intent</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
+
+<script>
+  function PriceData(e){
+    $.ajax({
+      url: "/charges",
+      type: "GET",
+      data: {"price" : $(e).attr('data-price')},
+      dataType: "script"
+    });
+  }
+</script>
